@@ -8,7 +8,6 @@ public class UsingCallable {
         ExecutorService service = Executors.newFixedThreadPool(2);
         Future<Double> taskAreaCalculation = service.submit(new AreaCalcultionUsingCallable(7));
         Future<Double> taskCircumferenceCalculation = service.submit(new CircumferenceCalculationUsingCallable(7));
-
         System.out.println(taskAreaCalculation.get());
         System.out.println(taskCircumferenceCalculation.get());
     }
