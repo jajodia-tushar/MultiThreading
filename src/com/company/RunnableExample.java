@@ -3,6 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.function.Function;
 
 public class RunnableExample {
 
@@ -14,11 +15,19 @@ public class RunnableExample {
             Future<String> future = service.submit(call);
             list.add(future);
         }
+        Function<Future<String>,String> function = f->{
+            String name = "";
+            try {
+                name = f.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            return name;
+        };
 
-        for (Future<String> future:
-                list) {
-            System.out.println(System.currentTimeMillis()+"::::"+future.get());
-        }
+        list.stream().map(function).forEach(System.out::println);
     }
 }
 
